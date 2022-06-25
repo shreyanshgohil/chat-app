@@ -1,0 +1,49 @@
+/* Globle style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Genral style */
+
+.btn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.icon {
+  font-size: 24px !important;
+}
+.grid {
+  display: grid;
+}
+.grid-one-column {
+  grid-template-columns: repeat(3, 1fr);
+}
+.inputBox {
+  border: none;
+  font-size: 1.8rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+.inputBox:focus {
+  outline: none;
+}
+a {
+  text-decoration: none;
+}

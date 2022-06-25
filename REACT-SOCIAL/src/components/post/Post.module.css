@@ -1,0 +1,96 @@
+.post {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px #999;
+  margin-bottom: 4.8rem;
+}
+.post:last-child{
+  margin-bottom: 0rem;
+}
+
+.postTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.8rem;
+}
+.postTopLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.profileImage {
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+.profileLink{
+  display: flex;
+  align-items: center;
+  color: #000;
+  text-transform: capitalize;
+}
+
+.userName {
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.timeAgoText {
+  font-size: 1.2rem;
+}
+.timeTextSpan {
+  font-size: 1.2rem;
+}
+
+.postTopRight .moreVertLogo {
+  font-size: 20px;
+}
+
+.postTitle {
+  font-size: 1.8rem;
+  margin-bottom: 2.8rem;
+  display: inline-block;
+}
+.postImage {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 2.8rem;
+}
+.postBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.postBottomLeft {
+  display: flex;
+  align-items: center;
+  gap:.5rem
+}
+.likeImage,
+.disLikeImage {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.noLikes {
+  font-size: 1.4rem;
+}
+
+.noPost {
+  font-size: 1.4rem;
+  padding-bottom: 1px;
+  border-bottom: 1px dashed #999;
+}
+.postBottomRight{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.bookMarkIcon{
+  font-size: large;
+}

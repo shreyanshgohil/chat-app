@@ -1,0 +1,11 @@
+.feedHome {
+  flex: 5.5;
+  height: calc(100vh - 5.5rem);
+  overflow-y: scroll;
+}
+.feedProfile{
+  height: auto;
+}
+.feedWrapeer {
+  padding: 2rem;
+}

@@ -1,0 +1,16 @@
+.sideBarFriend {
+    margin-bottom: 2.4rem;
+    align-items: center;
+  }
+  .sideBarProfilePicture {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin-right: 1rem;
+  }
+  .friendUserName {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }

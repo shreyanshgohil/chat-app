@@ -1,0 +1,29 @@
+
+.onlineFriend{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+.onlineFriend::after{
+    content: " ";
+    height: 10px;
+    width: 10px;
+    background-color: green;
+    position: absolute;
+    top:0%;
+    left: 8%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+.onLineUserImage{
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.onLineUserName{
+    font-size: 1.5rem;
+    letter-spacing: .5px;
+}

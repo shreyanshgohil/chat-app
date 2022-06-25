@@ -1,0 +1,29 @@
+.rightBarProfile {
+  flex: 3;
+  padding: 1rem;
+}
+.rightBarBottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 3rem;
+}
+.UserFriendsLabel {
+  font-size: 1.8rem;
+  margin-bottom: 1.8rem;
+}
+.userInformationText {
+  font-size: 1.8rem;
+  margin-bottom: 1.4rem;
+}
+.infoText {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+.infoPrefix {
+  color: #777;
+  margin-right: 5px;
+}
+.rightBarTop {
+  margin-bottom: 3.4rem;
+}
