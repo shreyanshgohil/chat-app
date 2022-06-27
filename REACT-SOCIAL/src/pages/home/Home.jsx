@@ -11,7 +11,7 @@ const Home = () => {
   // Inits
   const { user } = useContext(AuthContext);
   const [homePost, setHomePost] = useState([]);
-
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // Featching posts which need to display on home page
   useEffect(() => {
     const homePostFetchHandler = async () => {
@@ -29,12 +29,20 @@ const Home = () => {
 
   return (
     <>
-      <TopBar />
-      <div className={style.homeContainer}>
-        <SideBar />
-        <Feed page="home" user={user} posts={homePost} />
-        <RightBar />
-      </div>
+      {homePost ? (
+        <>
+          <TopBar />
+          <div className={style.homeContainer}>
+            <SideBar />
+            <Feed page="home" user={user} posts={homePost} />
+            <RightBar />
+          </div>
+        </>
+      ) : (
+        <div className={style.loderWrapper}>
+          <img src={PF + `Loder.gif`} className={style.loderImage} />
+        </div>
+      )}
     </>
   );
 };

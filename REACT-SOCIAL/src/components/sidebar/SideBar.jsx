@@ -10,20 +10,19 @@ import {
   Event,
   School,
 } from "@mui/icons-material";
-import { Users } from "../../dummyData";
+
 import CloseFriend from "../closeFriend/CloseFriend";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 const SideBar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className={style.sideBar}>
       <div className={style.sidebarWrapper}>
         <ul className={style.sideBarListItems}>
           <li className={style.sidebarListItem}>
-            <NavLink
-              to="/"
-              className={style.sideLinks}
-              
-            >
+            <NavLink to="/" className={style.sideLinks}>
               <RssFeed className={style.sidebarIcon} />
               <span className={style.sidebarListItemText}>Feed</span>
             </NavLink>
@@ -112,8 +111,8 @@ const SideBar = () => {
         <button className={`${style.showMoreButton} btn`}>Show More</button>
         <hr className={style.sideBarBottomRow} />
         <ul className={style.sideBarFriendList}>
-          {Users.map((user) => (
-            <CloseFriend user={user} key={user.id} />
+          {user.followings.map((user, i) => (
+            <CloseFriend user={user} key={i} />
           ))}
         </ul>
       </div>

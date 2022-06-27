@@ -1,20 +1,28 @@
 import style from "./Post.module.css";
-import { MoreVert, BookmarkAddOutlined } from "@mui/icons-material";
+import { MoreVert } from "@mui/icons-material";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 const Post = (props) => {
   // Inits
-
+  const { user } = useContext(AuthContext);
   const { post } = props;
+
   const [like, setLike] = useState(post.likes.length);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(
+    post.likes.find((userId) => userId === user._id)
+  );
   const [postUser, setPostUser] = useState(null);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const { user } = useContext(AuthContext);
+  const [isBookmarkedPost, setBookmarkedPost] = useState(
+    user?.bookmark?.find((postId) => postId === post._id)
+  );
 
   // Likes and dislikes
   const likeHandler = async () => {
@@ -39,8 +47,18 @@ const Post = (props) => {
       }
     };
     getPostUserHandler();
-  }, []);
+  }, [user._id]);
 
+  const addBookMarkHandler = async () => {
+    try {
+      setBookmarkedPost(!isBookmarkedPost);
+      await axios.put(`http://localhost:8800/api/users/${user._id}/bookmark`, {
+        postId: post?._id,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className={style.post}>
       <div className={style.postWrapper}>
@@ -50,7 +68,6 @@ const Post = (props) => {
               to={`/profile/${postUser?.username}`}
               className={style.profileLink}
             >
-            {console.log(postUser?.profilePicture)}
               <img
                 src={
                   postUser?.profilePicture
@@ -80,25 +97,31 @@ const Post = (props) => {
         </div>
         <div className={style.postBottom}>
           <div className={style.postBottomLeft}>
-            <img
-              onClick={likeHandler}
-              src={`${PF}/like.png`}
-              alt="Like Button"
-              loading="lazy"
-              className={`${style.likeImage} `}
-            />
-            <img
-              onClick={likeHandler}
-              src={`${PF}/heart.png`}
-              alt="Heart Button"
-              loading="lazy"
-              className={`${style.disLikeImage} `}
-            />
+            {!isLiked ? (
+              <FavoriteBorderIcon
+                onClick={likeHandler}
+                className={style.likeImage}
+              />
+            ) : (
+              <FavoriteIcon onClick={likeHandler} className={style.likeImage} />
+            )}
+
             <span className={style.noLikes}>{like} people like it</span>
           </div>
           <div className={style.postBottomRight}>
             <span className={style.noPost}>{post.comment} comments</span>
-            <BookmarkAddOutlined className={style.bookMarkIcon} />
+
+            {isBookmarkedPost ? (
+              <BookmarkIcon
+                className={style.bookMarkIcon}
+                onClick={addBookMarkHandler}
+              />
+            ) : (
+              <BookmarkBorderIcon
+                className={style.bookMarkIcon}
+                onClick={addBookMarkHandler}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -19,7 +19,6 @@ router.put("/:id", async (req, res, next) => {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       });
-      console.log(user._doc);
 
       res.status(200).json("Account is updated");
     } catch (err) {
@@ -112,7 +111,7 @@ router.put("/:id/bookmark", async (req, res, next) => {
     const postId = req.body.postId;
     if (!user.bookmark.includes(postId)) {
       await user.updateOne({ $push: { bookmark: postId } });
-      res.status(200).json("post added succesfully");
+      res.status(200).json("post added from bookmark succesfully");
     } else {
       await user.updateOne({ $pull: { bookmark: postId } });
       res.status(200).json("post removed from bookmark succesfully");
@@ -126,16 +125,12 @@ router.put("/:id/bookmark", async (req, res, next) => {
 // Get all bookmark post of user
 router.get("/:id/bookmark/allpost", async (req, res, next) => {
   try {
-    if (req.params.id === req.body.userId) {
-      const user = await User.findById(req.body.userId);
-      console.log("user");
-      const posts = await Promise.all(
-        user.bookmark.map((singlePost) => Post.findById(singlePost))
-      );
-      user && res.status(200).json(posts);
-    } else {
-      res.status(400).json("You can't see other people bookmarkd posts");
-    }
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const posts = await Promise.all(
+      user.bookmark.map((singlePost) => Post.findById(singlePost))
+    );
+    user && res.status(200).json(posts);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

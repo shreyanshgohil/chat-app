@@ -1,7 +1,9 @@
 import style from "./RightBarProfile.module.css";
 import { Users } from "../../dummyData";
 import OnlineUerProfile from "../onlineUser/OnlineUerProfile";
-const RightBarProfile = () => {
+const RightBarProfile = (props) => {
+  const { profileUser } = props;
+
   return (
     <div className={style.rightBarProfile}>
       <div className={style.rightBarProfileWrapper}>
@@ -19,8 +21,8 @@ const RightBarProfile = () => {
         </div>
         <h4 className={style.UserFriendsLabel}>User Friends</h4>
         <div className={style.rightBarBottom}>
-          {Users.map((user) => (
-            <OnlineUerProfile user={user} key={user.id} />
+          {profileUser?.followings.map((user,i) => (
+            <OnlineUerProfile user={user} key={i} />
           ))}
         </div>
       </div>

@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const TopBar = () => {
-  const {user} = useContext(AuthContext)
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+  const { user } = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <div className={style.topBarContainer}>
       <div className={style.topBarLeft}>
@@ -62,7 +62,11 @@ const TopBar = () => {
             </ul>
           </div>
           <img
-            src={PF + `person/${user.profilePicture}`}
+            src={
+              user.profilePicture
+                ? PF + `person/${user.profilePicture}`
+                : PF + `person/noAvtar.jpeg`
+            }
             className={style.topBarImage}
             loading="lazy"
             alt="User profile"

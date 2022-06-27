@@ -4,13 +4,17 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const Share = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   return (
     <div className={style.share}>
       <div className={style.shareWrapper}>
         <div className={style.shareTop}>
           <img
-            src={PF + `/person/${user.profilePicture}`}
+            src={
+              user.profilePicture
+                ? PF + `/person/${user.profilePicture}`
+                : PF + `/person/noAvtar.jpeg`
+            }
             alt=""
             loading="lazy"
             className={style.shareProfilePicture}

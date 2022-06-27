@@ -58,7 +58,7 @@ const Profile = () => {
                 src={
                   profileUser?.profilePicture
                     ? `${PF}person/${profileUser?.profilePicture}`
-                    : `${PF}person/noAvtar.png`
+                    : `${PF}person/noAvtar.jpeg`
                 }
                 alt="User Profile"
                 className={style.profileUserImage}
@@ -72,7 +72,7 @@ const Profile = () => {
           </div>
           <div className={`${style.profileRightBottom} flex`}>
             <Feed page="profile" user={profileUser} posts={profilePosts} />
-            <RightBarProfile />
+            <RightBarProfile profileUser={profileUser} />
           </div>
         </div>
       </div>
