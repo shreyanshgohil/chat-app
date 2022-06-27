@@ -20,7 +20,6 @@ const OnlineUerProfile = (props) => {
   }, [userId]);
   return (
     <>
-      {console.log(userObj, "userobj=====>")}
       <div className={style.OnlineUerProfile}>
         <div className={style.OnlineUerProfileWrapper}>
           <div className={style.usersContainer}>

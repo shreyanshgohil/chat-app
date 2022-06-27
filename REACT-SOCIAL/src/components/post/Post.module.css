@@ -43,11 +43,23 @@
 .timeTextSpan {
   font-size: 1.2rem;
 }
-
+.postTopRight {
+  position: relative;
+}
 .postTopRight .moreVertLogo {
   font-size: 20px;
 }
-
+.postOptionModel {
+  position: absolute;
+  top: 100%;
+  right: 100%;
+}
+.postOptions {
+  list-style: none;
+}
+.postOption {
+  font-size: 1.4rem;
+}
 .postTitle {
   font-size: 1.8rem;
   margin-bottom: 2.8rem;

@@ -35,11 +35,12 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
+    console.log("==========>", req.body.userId);
     if (post.userId === req.body.userId) {
       await post.deleteOne();
       res.status(200).json("post deleted succesfully");
     } else {
-      res.status(403).json("You can not delete others post");
+      res.status(400).json("You can not delete others post");
     }
   } catch (err) {
     console.log(err);
@@ -121,8 +122,6 @@ router.get("/post/:userId", async (req, res, next) => {
     res.status(err).json(err);
   }
 });
-
-
 
 // Add a comment
 router.put("/:id/comment", async (req, res, next) => {

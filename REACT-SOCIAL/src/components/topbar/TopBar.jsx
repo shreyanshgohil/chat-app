@@ -1,6 +1,6 @@
 import style from "./TopBar.module.css";
 import { Search, Person, Chat, Notifications } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const TopBar = () => {
@@ -50,10 +50,14 @@ const TopBar = () => {
                 <span className={style.topBarIconBadge}>1</span>
               </li>
               <li className={style.topBarIcon}>
-                <Chat className={style.topBarIconMain} />
-                <span className={`${style.topBarIconBadge} ${style.chatIcon}`}>
-                  1
-                </span>
+                <Link to="/messenger">
+                  <Chat className={style.topBarIconMain} />
+                  <span
+                    className={`${style.topBarIconBadge} ${style.chatIcon}`}
+                  >
+                    1
+                  </span>
+                </Link>
               </li>
               <li className={style.topBarIcon}>
                 <Notifications className={style.topBarIconMain} />

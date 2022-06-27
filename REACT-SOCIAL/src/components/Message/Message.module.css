@@ -1,0 +1,39 @@
+.message{
+    display: flex;
+    flex-direction: column;
+}
+.messageTop{
+    display: flex;
+
+}
+.messageImage{
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+.messageText{
+    padding: 1rem;
+    border-radius: 2rem;
+    background-color: #1877f2;
+    color: white;
+    font-size: 1.4rem;
+    max-width: 30rem;
+}
+.messageBottom{
+font-style: 1.2rem;
+margin-top: 1rem;
+}
+
+.message.own{
+    align-items: flex-end;
+}
+
+.message.own .messageText{
+    background: rgb(245, 245, 245);
+    color: black;
+}
+.chatMessageInput{
+    
+}

@@ -13,17 +13,23 @@ const Post = (props) => {
   // Inits
   const { user } = useContext(AuthContext);
   const { post } = props;
-
+  const [openOptions, setOpenOption] = useState(false);
+  const [postUser, setPostUser] = useState(null);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [like, setLike] = useState(post.likes.length);
+  const [isAvailable, setIsAvaliable] = useState(true);
   const [isLiked, setIsLiked] = useState(
     post.likes.find((userId) => userId === user._id)
   );
-  const [postUser, setPostUser] = useState(null);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [isBookmarkedPost, setBookmarkedPost] = useState(
     user?.bookmark?.find((postId) => postId === post._id)
   );
 
+  // OPtion open close
+  const optionOpenCloseHandler = () => {
+    console.log(openOptions);
+    setOpenOption(!openOptions);
+  };
   // Likes and dislikes
   const likeHandler = async () => {
     await axios.put(`http://localhost:8800/api/posts/${post._id}/like`, {
@@ -59,73 +65,116 @@ const Post = (props) => {
       console.log(err);
     }
   };
+
+  const deletePostHandler = async (e) => {
+    e.stopPropagation();
+    const response = await axios.delete(
+      `http://localhost:8800/api/posts/${post._id}`,
+      {
+        data: {
+          userId: user._id,
+        },
+      }
+    );
+    if (response.status === 200) {
+      setIsAvaliable(false);
+    }
+  };
   return (
-    <div className={style.post}>
-      <div className={style.postWrapper}>
-        <div className={style.postTop}>
-          <div className={style.postTopLeft}>
-            <Link
-              to={`/profile/${postUser?.username}`}
-              className={style.profileLink}
-            >
+    <>
+      {isAvailable ? (
+        <div className={style.post}>
+          <div className={style.postWrapper}>
+            <div className={style.postTop}>
+              <div className={style.postTopLeft}>
+                <Link
+                  to={`/profile/${postUser?.username}`}
+                  className={style.profileLink}
+                >
+                  <img
+                    src={
+                      postUser?.profilePicture
+                        ? `${PF}person/${postUser?.profilePicture}`
+                        : PF + "person/noAvtar.jpeg"
+                    }
+                    alt="User profile"
+                    className={style.profileImage}
+                    loading="lazy"
+                  />
+                  <span className={style.userName}>{postUser?.username}</span>
+                </Link>
+                <p className={style.timeAgoText}>{format(post.createdAt)}</p>
+              </div>
+              <div
+                className={style.postTopRight}
+                onClick={optionOpenCloseHandler}
+              >
+                <MoreVert className={style.moreVertLogo} />
+                {openOptions ? (
+                  <div className={style.postOptionModel}>
+                    <ul className={style.postOptions}>
+                      <li
+                        className={style.postOption}
+                        onClick={deletePostHandler}
+                      >
+                        Delete
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+            <div className={style.postCenter}>
+              <span className={style.postTitle}>{post?.desc}</span>
               <img
                 src={
-                  postUser?.profilePicture
-                    ? `${PF}person/${postUser?.profilePicture}`
-                    : PF + "person/noAvtar.jpeg"
+                  post?.img ? `${PF}post/${post?.img}` : PF + "post/noPost.png"
                 }
-                alt="User profile"
-                className={style.profileImage}
+                alt="Post"
+                className={style.postImage}
                 loading="lazy"
               />
-              <span className={style.userName}>{postUser?.username}</span>
-            </Link>
-            <p className={style.timeAgoText}>{format(post.createdAt)}</p>
-          </div>
-          <div className={style.postTopRight}>
-            <MoreVert className={style.moreVertLogo} />
-          </div>
-        </div>
-        <div className={style.postCenter}>
-          <span className={style.postTitle}>{post?.desc}</span>
-          <img
-            src={post?.img ? `${PF}post/${post?.img}` : PF + "post/noPost.png"}
-            alt="Post"
-            className={style.postImage}
-            loading="lazy"
-          />
-        </div>
-        <div className={style.postBottom}>
-          <div className={style.postBottomLeft}>
-            {!isLiked ? (
-              <FavoriteBorderIcon
-                onClick={likeHandler}
-                className={style.likeImage}
-              />
-            ) : (
-              <FavoriteIcon onClick={likeHandler} className={style.likeImage} />
-            )}
+            </div>
+            <div className={style.postBottom}>
+              <div className={style.postBottomLeft}>
+                {!isLiked ? (
+                  <FavoriteBorderIcon
+                    onClick={likeHandler}
+                    className={style.likeImage}
+                  />
+                ) : (
+                  <FavoriteIcon
+                    onClick={likeHandler}
+                    className={style.likeImage}
+                  />
+                )}
 
-            <span className={style.noLikes}>{like} people like it</span>
-          </div>
-          <div className={style.postBottomRight}>
-            <span className={style.noPost}>{post.comment} comments</span>
+                <span className={style.noLikes}>{like} people like it</span>
+              </div>
+              <div className={style.postBottomRight}>
+                <span className={style.noPost}>{post.comment} comments</span>
 
-            {isBookmarkedPost ? (
-              <BookmarkIcon
-                className={style.bookMarkIcon}
-                onClick={addBookMarkHandler}
-              />
-            ) : (
-              <BookmarkBorderIcon
-                className={style.bookMarkIcon}
-                onClick={addBookMarkHandler}
-              />
-            )}
+                {isBookmarkedPost ? (
+                  <BookmarkIcon
+                    className={style.bookMarkIcon}
+                    onClick={addBookMarkHandler}
+                  />
+                ) : (
+                  <BookmarkBorderIcon
+                    className={style.bookMarkIcon}
+                    onClick={addBookMarkHandler}
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <h3>Post deleted succesfullt</h3>
+      )}
+    </>
   );
 };
 

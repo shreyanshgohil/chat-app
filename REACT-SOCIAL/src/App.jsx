@@ -6,7 +6,7 @@ import Profile from "./pages/profile/Profile";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import BookMark from "./pages/bookmark/BookMark";
-
+import Messenger from "./pages/Messenger/Messenger";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -25,6 +25,9 @@ function App() {
       </Route>
       <Route path="/bookmarks">
         {user ? <BookMark /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/messenger">
+        {user ? <Messenger/> :<Redirect to="/login"/>}
       </Route>
     </Switch>
   );

@@ -16,10 +16,10 @@ const Profile = () => {
   // Fetching user profile
   useEffect(() => {
     const getUserAllPostHandler = async () => {
-      const user = await axios.get(
+      const response = await axios.get(
         `http://localhost:8800/api/users?userName=${username}`
       );
-      setProfileUser(user.data);
+      setProfileUser(response.data);
     };
     getUserAllPostHandler();
   }, []);
@@ -70,10 +70,14 @@ const Profile = () => {
               <p className={style.userDescription}>{profileUser?.desc}</p>
             </div>
           </div>
-          <div className={`${style.profileRightBottom} flex`}>
-            <Feed page="profile" user={profileUser} posts={profilePosts} />
-            <RightBarProfile profileUser={profileUser} />
-          </div>
+          {profileUser ? (
+            <div className={`${style.profileRightBottom} flex`}>
+              <Feed page="profile" user={profileUser} posts={profilePosts} />
+              <RightBarProfile profileUser={profileUser} />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>
